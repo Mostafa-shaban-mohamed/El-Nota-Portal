@@ -1,0 +1,37 @@
+<div class="card mt-5">
+    <div class="card-header" style="background-color: orange;">
+        <h4 style="color: white;">Register</h4>
+    </div>
+    <div class="card-body">
+        <form class="center m-5" #f="ngForm" (ngSubmit)="onSubmit()">
+            <fieldset>
+                <div class="form-group row">
+                    <label for="userName" class="col-sm-3 form-label">User Name</label>
+                    <input type="text" required="" [(ngModel)]="createUser.userName" name="userName" id="userName" class="col-sm-9 form-control" placeholder="Please Enter Your Name">
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-3 form-label">Email</label>
+                    <input type="text" required="" email [(ngModel)]="createUser.email" name="email" id="email" class="col-sm-9 form-control" placeholder="Please Enter The Email">
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-3 form-label">Password</label>
+                    <input type="password" required="" #p="ngModel" [(ngModel)]="createUser.password" name="password" id="password" class="col-sm-9 form-control">
+                </div>
+                <div class="form-group row">
+                    <label for="confrimPassword" class="col-sm-3 form-label">Confirmed Password</label>
+                    <input type="password" required="" #cp="ngModel" [(ngModel)]="confirmPassword" name="confrimPassword" id="confrimPassword" class="col-sm-9 form-control">
+                </div>
+                <span *ngIf="p.control.value != cp.control.value && p.control.value != '' && cp.control.value != ''" class="text-danger text-center">Confirmed Password & Password aren't the same</span>
+                <br>
+                <div class="text-center">
+                    <button [disabled]="!f.valid" class="btn btn-warning" type="submit">Register</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="text-center m-3">
+            <p>If you already have an Account, Click <a class="link-info" routerLink="/login" routerLinkActive="active">Here</a></p>
+        </div>
+    </div>
+</div>

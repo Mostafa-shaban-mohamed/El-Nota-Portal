@@ -1,0 +1,48 @@
+<div>
+    <!-- Create New List -->
+    <button style="float: right;" class="btn btn-outline-warning" (click)="openModal()">Add a To-Do List...</button>
+    <br>
+    <div class="text-center" *ngIf="scheduleList.length == 0">
+        <br>
+        <br>
+        <h6>No Scheduled To-Do Lists Yet</h6>
+    </div>
+    <!-- Display Lists -->
+    <div *ngIf="scheduleList.length > 0">
+        <h5 class="type-list-header">Scheduled Lists</h5>
+        <div class="row">
+            <div class="col-md-6 col-sm-12" *ngFor="let listSd of scheduleList">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{ listSd.startDate | date }} : {{ listSd.endDate | date }}</h5>
+                    </div>
+                    <div [id]="listSd.id" #d class="card-body" style="height: auto;">
+                        <form #f="ngForm" (ngSubmit)="onCreateNewTask(i.value, listSd.id); i.value = '';" class="row new-task-form">
+                            <input class="new-task-field" #i name="newTask" type="text" placeholder="Add Task...">
+                            <button class="new-task-btn" type="submit">+</button>
+                        </form>
+                        <div *ngFor="let task of listSd.tasks" class="col-md-12 col-sm-12">
+                            <div class="col-md-12 col-sm-12">
+                                <p>{{ task.taskName }}</p>
+                            </div>
+                            <div style="text-align: right;" class="col-md-12 col-sm-12">
+                                <button class="delete-task-btn" (click)="onDeleteTask(task.id, listSd.id)"><img src="assets/Icons/trash.png" width="100%" height="auto"></button>
+                                <input [checked]="task.isFinished" (change)="onChangeStatus(task)" style="margin: 0 5px;" type="checkbox" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <button class="card-footer-btn" (click)="onDeleteList(listSd.id)">
+                                <img src="assets/Icons/trash.png" width="20px" height="auto"/>
+                            </button>
+                            <button class="card-footer-edit-btn" (click)="openEditModal(listSd)">
+                                <img src="assets/Icons/edit.png" width="20px" height="auto"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

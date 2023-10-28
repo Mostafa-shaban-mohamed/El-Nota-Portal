@@ -1,0 +1,87 @@
+<div>
+    <h6 style="text-align: center;">Notes in Trash are deleted after 7 days</h6>
+</div>
+<br>
+<div class="text-center" *ngIf="!(dailyList.length > 0 || scheduledList.length > 0)">
+    <img src="assets/Icons/trash.png" width="200px" height="auto"/>
+    <br>
+    <br>
+    <h6>No To-Do Lists in Trash</h6>
+</div>
+
+<div *ngIf="dailyList.length > 0 || scheduledList.length > 0">
+    <!-- Display daily Lists -->
+    <div class="text-center" *ngIf="dailyList.length == 0">
+        <br>
+        <br>
+        <h6>No Daily To-Do Lists in Trash</h6>
+    </div>
+    <div *ngIf="dailyList.length > 0">
+        <h5 class="type-list-header">Daily Lists</h5>
+        <div class="row">
+            <div class="col-md-6 col-sm-12" *ngFor="let list of dailyList">
+                <div class="card">
+                    <div [id]="list.id" #d class="card-body" style="height: auto;">
+                        <div *ngFor="let task of list.tasks" class="col-md-12 col-sm-12">
+                            <div class="col-md-12 col-sm-12">
+                                <p>{{ task.taskName }}</p>
+                            </div>
+                            <div style="text-align: right;" class="col-md-12 col-sm-12">
+                                <input class="delete-task-btn" [checked]="task.isFinished" type="checkbox" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group">
+                            <button class="card-footer-btn" (click)="onHardDelete(list.id)" data-toggle="tooltip" data-placement="top" title="Click To Delete">
+                                <img src="assets/Icons/trash.png" width="20px" height="auto"/>
+                            </button>
+                            <button class="card-footer-btn" (click)="onRestore(list.id)" data-toggle="tooltip" data-placement="top" title="Click To Restore">
+                                <img src="assets/Icons/restore.png" style="color: orange;" width="20px" height="auto"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="text-center" *ngIf="scheduledList.length == 0">
+        <br>
+        <br>
+        <h6>No Scheduled To-Do Lists in Trash</h6>
+    </div>
+    <!-- Display Scheduled Lists -->
+    <div *ngIf="scheduledList.length > 0">
+        <h5 class="type-list-header">Scheduled Lists</h5>
+        <div class="row">
+            <div class="col-md-6 col-sm-12" *ngFor="let listSd of scheduledList">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{ listSd.startDate | date }} : {{ listSd.endDate | date }}</h5>
+                    </div>
+                    <div [id]="listSd.id" #d class="card-body" style="height: auto;">
+                        <div *ngFor="let task of listSd.tasks" class="col-md-12 col-sm-12">
+                            <div class="col-md-12 col-sm-12">
+                                <p>{{ task.taskName }}</p>
+                            </div>
+                            <div style="text-align: right;" class="col-md-12 col-sm-12">
+                                <input class="delete-task-btn" [checked]="task.isFinished" style="margin: 0 5px;" type="checkbox" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group">
+                            <button class="card-footer-btn" (click)="onHardDelete(listSd.id)" data-toggle="tooltip" data-placement="top" title="Click To Delete">
+                                <img src="assets/Icons/trash.png" width="20px" height="auto"/>
+                            </button>
+                            <button class="card-footer-btn" (click)="onRestore(listSd.id)" data-toggle="tooltip" data-placement="top" title="Click To Restore">
+                                <img src="assets/Icons/restore.png" width="20px" height="auto"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
