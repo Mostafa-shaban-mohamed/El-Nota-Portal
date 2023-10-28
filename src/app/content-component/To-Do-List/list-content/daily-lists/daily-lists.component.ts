@@ -39,7 +39,7 @@ export class DailyListsComponent implements OnInit {
 
   //get lists with tasks
   onFetchListWithTasks(){
-    this.listService.getListWithTasks(true).subscribe(resp => { this.dailyList = resp; console.log(this.dailyList)});
+    this.listService.getListWithTasks(true).subscribe(resp => { this.dailyList = resp;});
   }
 
   //create new task for certain list
