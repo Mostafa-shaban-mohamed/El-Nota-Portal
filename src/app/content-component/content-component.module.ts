@@ -12,6 +12,10 @@ import { TrashContentComponent } from './To-Do-List/list-content/trash-content/t
 import { DailyListsComponent } from './To-Do-List/list-content/daily-lists/daily-lists.component';
 import { ScheduledListsComponent } from './To-Do-List/list-content/scheduled-lists/scheduled-lists.component';
 import { ModalComponent } from '../shared/components/modal/modal.component';
+import { NoteComponent } from './To-Do-List/list-content/note/note.component';
+import { LabelsComponent } from './labels/labels.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LabelItemsModule } from './labels/label-items/label-items.module';
 
 
 
@@ -23,14 +27,18 @@ import { ModalComponent } from '../shared/components/modal/modal.component';
         RegisterComponent,
         TrashContentComponent,
         DailyListsComponent,
-        ScheduledListsComponent
+        ScheduledListsComponent,
+        NoteComponent,
+        LabelsComponent
     ],
     imports: [
         CommonModule,
         BrowserModule,
         FormsModule,
         RouterModule,
-        SharedModule
+        SharedModule,
+        NgbModule,
+        LabelItemsModule
     ],
 })
 export class ContentComponentModule { }

@@ -15,8 +15,12 @@ export class LoadingInterceptor implements HttpInterceptor {
   constructor(private loadingService: LoaderService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if(!request.url.includes("write-note") && !request.url.includes("update-task")){
+      this.loadingService.setLoading(true);
+    }
+
     this.totalRequests++;
-    this.loadingService.setLoading(true);
+    
     return next.handle(request).pipe(
       finalize(() => {
         this.totalRequests--;

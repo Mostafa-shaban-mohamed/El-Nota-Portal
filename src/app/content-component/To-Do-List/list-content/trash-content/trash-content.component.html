@@ -2,14 +2,49 @@
     <h6 style="text-align: center;">Notes in Trash are deleted after 7 days</h6>
 </div>
 <br>
-<div class="text-center" *ngIf="!(dailyList.length > 0 || scheduledList.length > 0)">
+<div class="text-center" *ngIf="!(dailyList.length > 0 || scheduledList.length > 0 || notes.length > 0)">
     <img src="assets/Icons/trash.png" width="200px" height="auto"/>
     <br>
     <br>
-    <h6>No To-Do Lists in Trash</h6>
+    <h6>No To-Do Lists or Notes in Trash</h6>
 </div>
 
-<div *ngIf="dailyList.length > 0 || scheduledList.length > 0">
+<div *ngIf="dailyList.length > 0 || scheduledList.length > 0 || notes.length > 0">
+    <!-- Display notes -->
+    <div class="text-center" *ngIf="notes.length == 0">
+        <img src="assets/Icons/trash.png" width="200px" height="auto"/>
+        <br>
+        <br>
+        <h6>No Notes in Trash</h6>
+    </div>
+    <!-- Display Notes -->
+    <div *ngIf="notes.length > 0">
+        <h5 class="type-list-header">Notes</h5>
+        <div class="row">
+            <div class="col-md-6 col-sm-12" *ngFor="let note of notes">
+                <div class="card">
+                    <div class="card-header">
+                        {{note.creationDate | date}} 
+                        <!-- <img [src]="note.isReminder ? alarmOn : alarmOff" alt="alarm" style="float: right;height: auto; width: 30px;"> -->
+                    </div>
+                    <div [id]="note.id" class="card-body" style="height: 200px; overflow-y: visible;">
+                        <textarea [disabled]="true" class="noteText" [(ngModel)]="note.noteText" name="noteText" style="height: 100%; width: 100%; border: none;"></textarea>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group">
+                            <button class="card-footer-btn" (click)="onHardDeleteNote(note.id)" data-toggle="tooltip" data-placement="top" title="Click To Delete">
+                                <img src="assets/Icons/trash.png" width="20px" height="auto"/>
+                            </button>
+                            <button class="card-footer-btn" (click)="onRestoreNote(note.id)" data-toggle="tooltip" data-placement="top" title="Click To Restore">
+                                <img src="assets/Icons/restore.png" style="color: orange;" width="20px" height="auto"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
     <!-- Display daily Lists -->
     <div class="text-center" *ngIf="dailyList.length == 0">
         <br>

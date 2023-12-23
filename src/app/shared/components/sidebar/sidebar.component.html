@@ -9,6 +9,14 @@
                 <img src="./assets/Icons/schedule.png" width="auto" height="100%" style="margin-right: 20px;"/>
                 <p>Scheduled To-Do Lists</p>
             </li>
+            <li class="sidebar-item row" routerLink="notes" routerLinkActive="active">
+                <img src="./assets/Icons/noteIcon.png" width="auto" height="100%" style="margin-right: 20px;"/>
+                <p>Notes</p>
+            </li>
+            <li class="sidebar-item row" (click)="showLabels(content)">
+                <img src="./assets/Icons/label.png" width="auto" height="100%" style="margin-right: 20px;"/>
+                <p>Show Labels</p>
+            </li>
             <li class="sidebar-item row" routerLink="trash" routerLinkActive="active">
                 <img src="./assets/Icons/trash.png" width="auto" height="100%" style="margin-right: 20px;"/>
                 <p>Trash</p>
@@ -16,3 +24,36 @@
         </ul>
     </div>
 </div>
+<ng-template #content let-modal>
+    <div>
+      <div class="modal-header">
+        <h5 class="modal-title ">Show Labels</h5>
+      </div>
+      <div class="modal-body">
+        <div class="btn-group" style="margin: 20px;">
+            <div class="row" style="flex-wrap: nowrap;">
+                <div class="col-md-8">
+                    <input class="form-control" [(ngModel)]="labelName" placeholder="New Label...">
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-outline-warning" (click)="addLabel()" type="button">Add</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <h6>Labels:</h6>
+            <ul class="label-list" *ngFor="let label of labels">
+                <li class="row" style="cursor: pointer;margin-left: 10px;" (click)="close()" [routerLink]="'labels/'+label.id" routerLinkActive="active">
+                    <div>
+                        <button type="button" class="btn-close btn-outline-warning btn" (click)="deleteLabel(label.id)">X</button>
+                    </div>
+                    <div style="margin: 5px 20px;">
+                        <p>{{ label.labelName }}</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+</ng-template>

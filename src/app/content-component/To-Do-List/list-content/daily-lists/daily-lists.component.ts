@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Tasks, ToDoListDto, ToDolists } from 'src/app/shared/models/list.model';
+import { Tasks, ToDoListDto, ToDolists, priorityType } from 'src/app/shared/models/list.model';
 import { ListServiceService } from 'src/app/shared/services/list-service.service';
 
 
@@ -15,7 +15,8 @@ export class DailyListsComponent implements OnInit {
   list: ToDoListDto = {
     startDate: null,
     endDate: null,
-    isDaily: true
+    isDaily: true,
+    labelId: null
   }
 
   constructor(private listService: ListServiceService){}
@@ -50,35 +51,72 @@ export class DailyListsComponent implements OnInit {
       isFinished: false,
       description: ""
     }
-    this.listService.createNewTask(newTask).subscribe(resp => {
-      if(resp.errorMessage.length > 0){
-        alert(resp.errorMessage[0]);
-      }
-      else{
-        this.listService.getTasksOfCertainList(listId).subscribe(res => {
-          this.onFetchListWithTasks
-        })
-      }
-    });
+    if(!event){
+      alert('The Field is Empty');
+    }
+    else{
+      this.listService.createNewTask(newTask).subscribe(resp => {
+        if(resp.errorMessage.length > 0){
+          alert(resp.errorMessage[0]);
+        }
+        else{
+          this.listService.getTasksOfCertainList(listId).subscribe(res => {
+            this.onFetchListWithTasks()
+          })
+        }
+      });
+    }
   }
 
   //change status of task
   onChangeStatus(task: Tasks){
     task.isFinished = !task.isFinished;
-    this.listService.updateTask(task).subscribe(resp => this.onFetchTasks(task.toDoListId));
+    this.listService.updateTask(task).subscribe(resp => /*this.onFetchTasks(task.toDoListId)*/{});
+  }
+  // change Priority of task
+  onChangePriority(task: Tasks){
+    if(task.priority == null){
+      task.priority = priorityType.Normal;
+    }else if(task.priority == priorityType.Normal){
+      task.priority = priorityType.High;
+    }else if(task.priority == priorityType.High){
+      task.priority = priorityType.Highest;
+    }else if(task.priority == priorityType.Highest){
+      task.priority = priorityType.Lowest;
+    }else if(task.priority == priorityType.Lowest){
+      task.priority = priorityType.Normal;
+    }
+    this.listService.updateTask(task).subscribe(resp => /*this.onFetchTasks(task.toDoListId)*/{});
+  }
+  //diplay priority
+  StorePriorityTypeString(type: priorityType): string {
+    return priorityType[type];
   }
   //delete certain task
   onDeleteTask(taskId: bigint, listId: bigint){
     this.listService.deleteTask(taskId).subscribe(resp => {
-      this.listService.getTasksOfCertainList(listId).subscribe(res => {
-        this.dailyList.filter(m => m.id = listId)[0].tasks = res;
-      });
+      // this.listService.getTasksOfCertainList(listId).subscribe(res => {
+      //   this.dailyList.filter(m => m.id = listId)[0].tasks = res;
+      // });
+      if(resp.isSuccess){
+        this.dailyList.filter(m => m.id == listId)[0].tasks = this.dailyList.filter(m => m.id == listId)[0].tasks?.filter(m => m.id != taskId);
+      }
+      else{
+        alert(resp.data);
+      }
     });
   }
 
   //delete To-Do List
   onDeleteList(listId: bigint){
-    this.listService.deleteList(listId).subscribe(resp => this.onFetchListWithTasks());
+    this.listService.deleteList(listId).subscribe(resp => {
+      if(resp.isSuccess == true){
+        this.dailyList = this.dailyList.filter(m => m.id != listId);
+      }
+      else{
+        alert(resp.data);
+      }
+    });
   }
 
   //add new List

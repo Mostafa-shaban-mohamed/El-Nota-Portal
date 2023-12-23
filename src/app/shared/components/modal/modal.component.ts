@@ -12,7 +12,8 @@ export class ModalComponent implements OnInit{
   list: ToDoListDto = {
     endDate: "",
     startDate: "",
-    isDaily: false
+    isDaily: false,
+    labelId: null
   }
   listId: bigint = BigInt(0);
   isCreate: boolean = true;

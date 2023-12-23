@@ -1,0 +1,7 @@
+.noteText{
+    resize: none;
+}
+
+.noteText:focus{
+    outline: none;
+}

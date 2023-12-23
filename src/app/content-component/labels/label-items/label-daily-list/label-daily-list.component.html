@@ -15,7 +15,7 @@
                 <div class="card">
                     <div [id]="list.id" #d class="card-body" style="height: auto;">
                         <form #f="ngForm" (ngSubmit)="onCreateNewTask(i.value, list.id); i.value = '';" class="row new-task-form">
-                            <input class="new-task-field" #i required name="newTask" required type="text" placeholder="Add Task...">
+                            <input class="new-task-field" #i name="newTask" type="text" placeholder="Add Task...">
                             <button class="new-task-btn" type="submit">+</button>
                         </form>
                         <div *ngFor="let task of list.tasks" class="col-md-12 col-sm-12">
@@ -25,7 +25,6 @@
                             <div style="text-align: right;" class="col-md-12 col-sm-12">
                                 <button class="delete-task-btn" (click)="onDeleteTask(task.id, list.id)"><img src="assets/Icons/trash.png" width="100%" height="auto"></button>
                                 <input [checked]="task.isFinished" (change)="onChangeStatus(task)" style="margin: 0 5px;" type="checkbox" />
-                                <button class="btn-sm btn btn-warning" style="font-size: 10px" (click)="onChangePriority(task)">{{ StorePriorityTypeString(task.priority) }}</button>
                             </div>
                         </div>
                     </div>
@@ -41,5 +40,3 @@
         </div>
     </div>
 </div>
-
-

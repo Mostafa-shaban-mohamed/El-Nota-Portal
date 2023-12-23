@@ -16,12 +16,21 @@ export interface Tasks
   toDoListId: bigint,
   taskName: string,
   isFinished: boolean,
-  description: string
+  description: string,
+  priority: priorityType
 }
 
 export interface ToDoListDto
 {
   startDate: string | null,
   endDate: string | null,
-  isDaily: boolean
+  isDaily: boolean,
+  labelId: number | null 
+}
+
+export enum priorityType {
+  Lowest = 1,
+  Normal = 2,
+  High = 3,
+  Highest = 4
 }

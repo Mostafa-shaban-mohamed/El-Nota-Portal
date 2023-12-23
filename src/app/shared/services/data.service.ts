@@ -25,4 +25,15 @@ export class DataService {
   get UserName(){
     return this.userName;
   }
+
+  // ============================ labels ===============================
+  private labelId: number = 0;
+
+  updateLabelId(newValue: number){
+    this.labelId = newValue;
+  }
+
+  get LabelId(){
+    return this.labelId;
+  }
 }
