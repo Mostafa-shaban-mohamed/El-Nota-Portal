@@ -21,7 +21,6 @@ export class DailyListsComponent implements OnInit {
 
   constructor(private listService: ListServiceService){}
   ngOnInit() {
-    //this.onFetch();
     this.onFetchListWithTasks();
   }
 

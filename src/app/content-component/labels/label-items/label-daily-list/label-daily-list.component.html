@@ -25,6 +25,7 @@
                             <div style="text-align: right;" class="col-md-12 col-sm-12">
                                 <button class="delete-task-btn" (click)="onDeleteTask(task.id, list.id)"><img src="assets/Icons/trash.png" width="100%" height="auto"></button>
                                 <input [checked]="task.isFinished" (change)="onChangeStatus(task)" style="margin: 0 5px;" type="checkbox" />
+                                <button class="btn-sm btn btn-warning" style="font-size: 10px" (click)="onChangePriority(task)">{{ StorePriorityTypeString(task.priority) }}</button>
                             </div>
                         </div>
                     </div>

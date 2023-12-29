@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
-import { Tasks, ToDoListDto, ToDolists } from 'src/app/shared/models/list.model';
+import { Tasks, ToDoListDto, ToDolists, priorityType } from 'src/app/shared/models/list.model';
 import { DataService } from 'src/app/shared/services/data.service';
 import { LabelService } from 'src/app/shared/services/label.service';
 import { ListServiceService } from 'src/app/shared/services/list-service.service';
@@ -68,7 +68,25 @@ export class LabelScheduledListComponent {
     task.isFinished = !task.isFinished;
     this.listService.updateTask(task).subscribe(resp => this.onFetchTasks(task.toDoListId));
   }
-  
+  // change Priority of task
+  onChangePriority(task: Tasks){
+    if(task.priority == null){
+      task.priority = priorityType.Normal;
+    }else if(task.priority == priorityType.Normal){
+      task.priority = priorityType.High;
+    }else if(task.priority == priorityType.High){
+      task.priority = priorityType.Highest;
+    }else if(task.priority == priorityType.Highest){
+      task.priority = priorityType.Lowest;
+    }else if(task.priority == priorityType.Lowest){
+      task.priority = priorityType.Normal;
+    }
+    this.listService.updateTask(task).subscribe(resp => /*this.onFetchTasks(task.toDoListId)*/{});
+  }
+  //diplay priority
+  StorePriorityTypeString(type: priorityType): string {
+    return priorityType[type];
+  }
   //delete certain task
   onDeleteTask(taskId: bigint, listId: bigint){
     this.listService.deleteTask(taskId).subscribe(resp => {

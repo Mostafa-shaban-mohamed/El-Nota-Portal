@@ -45,9 +45,9 @@ nav {
 }
 
 .nav-link-edited:hover {
-    color: black;
+    color: white;
     text-decoration: none;
-    background-color: rgb(220, 220, 220);
+    background-color: orange; /*rgb(220, 220, 220);*/
 }
 
 .card {
@@ -88,8 +88,8 @@ nav {
     border-bottom-right-radius: 20px 50%;
 }
 .sidebar-item:hover {
-    background-color: rgb(220, 220, 220);
-    color: black;
+    background-color: orange;/*rgb(220, 220, 220);*/
+    color: white;
     cursor: pointer;
 }
 
