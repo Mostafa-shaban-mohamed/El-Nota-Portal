@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LabelService } from '../../services/label.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,7 @@ export class SidebarComponent implements OnInit {
 
   labels: any[] = [];
   labelName: string = '';
-  constructor(public activeModal: NgbModal, private labelService: LabelService) { }
+  constructor(public activeModal: NgbModal, private router: Router, private labelService: LabelService) { }
   
   ngOnInit() { }
 
@@ -29,6 +30,7 @@ export class SidebarComponent implements OnInit {
     this.labelService.deleteLabel(id).subscribe(resp => {
       alert(resp.data);
       this.activeModal.dismissAll();
+      this.router.navigateByUrl('/note-lists/notes');
     })
   }
 

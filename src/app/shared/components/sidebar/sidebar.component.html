@@ -44,11 +44,11 @@
         <div>
             <h6>Labels:</h6>
             <ul class="label-list" *ngFor="let label of labels">
-                <li class="row" style="cursor: pointer;margin-left: 10px;" (click)="close()" [routerLink]="'labels/'+label.id" routerLinkActive="active">
+                <li class="row" style="cursor: pointer;margin-left: 10px;" (click)="close()" >
                     <div>
                         <button type="button" class="btn-close btn-outline-warning btn" (click)="deleteLabel(label.id)">X</button>
                     </div>
-                    <div style="margin: 5px 20px;">
+                    <div style="margin: 5px 20px;" [routerLink]="'labels/'+label.id" routerLinkActive="active">
                         <p>{{ label.labelName }}</p>
                     </div>
                 </li>
